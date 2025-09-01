@@ -1,0 +1,120 @@
+.homepage-container {
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1300px;
+  margin: auto;
+  color: #fff;
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin: 25px 0 15px;
+  padding-left: 12px;
+  border-left: 6px solid #ffcc00;
+  color: #ffcc00;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-behavior: smooth;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  min-width: 180px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px 15px 0 0;
+  display: block;
+}
+
+.card-title {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  min-height: 40px;
+}
+
+.card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 50px;
+  color: #ffcc00;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 40px 0;
+}
+
+.pagination button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 30px;
+  background: #ffcc00;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #ffc107;
+  transform: translateY(-2px);
+}
+
+.pagination span {
+  font-size: 1.2rem;
+  color: #fff;
+}

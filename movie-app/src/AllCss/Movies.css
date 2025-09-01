@@ -1,0 +1,129 @@
+/* Whole page */
+.movies-page {
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+}
+
+/* Section heading */
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  padding-left: 12px;
+  border-left: 6px solid #ffcc00;
+  color: #ffcc00;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Loader */
+.loading {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 60px;
+  color: #ffcc00;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.6; }
+}
+
+/* Grid for movie cards */
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
+}
+
+/* Link wrapper */
+.movie-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card style */
+.movie-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.movie-card:hover {
+  transform: scale(1.07);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Poster */
+.movie-poster {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 3px solid #ffcc00;
+}
+
+/* Info */
+.movie-info {
+  padding: 12px;
+  text-align: center;
+}
+
+.movie-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 6px;
+  transition: color 0.2s ease;
+  min-height: 40px;
+}
+
+.movie-card:hover .movie-title {
+  color: #ffcc00;
+}
+
+.movie-date {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 40px 0 10px;
+}
+
+.pagination button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 30px;
+  background: #ffcc00;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination button:disabled {
+  background: #777;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #ffc107;
+  transform: translateY(-2px);
+}
+
+.pagination span {
+  font-size: 1.2rem;
+  color: #fff;
+}
