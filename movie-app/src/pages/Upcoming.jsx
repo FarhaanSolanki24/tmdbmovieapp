@@ -5,7 +5,12 @@ import "../AllCss/UpcomingMovies.css";
 
 export default function UpcomingMovies() {
   const api_key = "4755bfd52ed699ba65ceafa0d34e55d2";
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const savedPage = localStorage.getItem("upcomingpage")
+    return savedPage ? Number(savedPage) : 1
+  });
+  const [totalPages, setTotalPages] = useState(1)
+
   const [showMovies, setShowMovies] = useState([]);
   const [loader, setLoader] = useState(true);
 
@@ -15,6 +20,7 @@ export default function UpcomingMovies() {
         const upcomingRes = await axios.get(
           `https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&page=${page}`
         );
+        setTotalPages(upcomingRes.data.total_pages)
         setShowMovies(upcomingRes.data.results);
       } catch (error) {
         console.log("Failed to fetch Movies", error);
@@ -25,6 +31,10 @@ export default function UpcomingMovies() {
     fetchUpcomingMovies();
   }, [page]);
 
+  useEffect(() => {
+    localStorage.setItem("upcomingpage", page)
+  }, [page])
+
   if (loader) return <h2 className="loading">Loading upcoming movies...</h2>;
 
   return (
@@ -32,7 +42,7 @@ export default function UpcomingMovies() {
       <h2 className="section-title">🎬 Upcoming Movies</h2>
 
       <div className="upcoming-container">
-        {showMovies.slice(0,12).map((upcoming) => (
+        {showMovies.slice(0, 12).map((upcoming) => (
           <Link key={upcoming.id} to={`/upcoming/${upcoming.id}`} className="movie-link">
             <div className="movie-card">
               <img
@@ -55,7 +65,7 @@ export default function UpcomingMovies() {
           ⬅ Previous
         </button>
         <span>Page {page}</span>
-        <button onClick={() => setPage((p) => p + 1)}>Next ➡</button>
+        <button disabled={page === totalPages} onClick={() => setPage((p) => p + 1)}>Next ➡</button>
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
 import "../AllCss/TvDetails.css"
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
 import { Link } from "react-router-dom";
 
 export default function TvDetails() {
   const { id } = useParams();
   const api_key = "4755bfd52ed699ba65ceafa0d34e55d2";
+
+  const { favorites, toggleFavorite } = useContext(FavoritesContext)
 
   const [tvDetails, setTvDetails] = useState(null);
   const [tvCast, setTvCast] = useState([]);
@@ -50,6 +53,7 @@ export default function TvDetails() {
   }
 
   if (!tvDetails) return <h2>Loading...</h2>;
+  const isFav = favorites.some((m) => m.id === tvDetails.id)
 
   return (
     <div className="details-container">
@@ -67,6 +71,13 @@ export default function TvDetails() {
           <p className="release">
             First Air Date: {tvDetails.first_air_date}
           </p>
+
+          <button
+            className={`fav-btn ${isFav ? "remove" : "add"}`}
+            onClick={() => toggleFavorite(tvDetails.id, "tv", isFav)}
+          >
+            {isFav ? "❤️ Remove from Favorites" : "🤍 Add to Favorites"}
+          </button>
           {showTrailer ? (
             <>
               {tvYt.slice(0, 1).map((tvTrailer) => (

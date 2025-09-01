@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../AllCss/Details.css";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 
 export default function DetailsPage() {
   const { type, id } = useParams();
   const api_key = "4755bfd52ed699ba65ceafa0d34e55d2";
+
+  const { favorites, toggleFavorite } = useContext(FavoritesContext)
 
   const [details, setDetails] = useState(null);
   const [cast, setCast] = useState([]);
@@ -73,6 +76,7 @@ export default function DetailsPage() {
 
   if (!details) return <p className="loading">Loading...</p>;
 
+  const isFav = favorites.some((f) => f.id === details.id && f.media_type === type)
   return (
     <div className="details-container">
       <div className="details-header">
@@ -89,6 +93,13 @@ export default function DetailsPage() {
           <p className="release">
             Release Date: {details.release_date || details.first_air_date}
           </p>
+          <button
+            className={`fav-btn ${isFav ? "remove" : "add"}`}
+            onClick={() => toggleFavorite(details.id, type, isFav)}
+          >
+            {isFav ? "❤️ Remove from Favorites" : "🤍 Add to Favorites"}
+          </button>
+
 
           {showTrailer ? (
             <>

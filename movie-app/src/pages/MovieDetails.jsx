@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../AllCss/MovieDetails.css";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 export default function MovieDetails() {
     const { id } = useParams();
     const api_key = "4755bfd52ed699ba65ceafa0d34e55d2";
+
+    const { favorites, toggleFavorite } = useContext(FavoritesContext)
 
     const [details, setDetails] = useState(null);
     const [cast, setCast] = useState([]);
@@ -54,6 +57,7 @@ export default function MovieDetails() {
 
     if (!details) return <h2>Loading....</h2>;
 
+    const isFav = favorites.some((m) => m.id === details.id)
     return (
         <div className="details-container">
             <div className="details-header">
@@ -69,6 +73,12 @@ export default function MovieDetails() {
                     <p className="release">
                         Release Date: {details.release_date || details.first_air_date}
                     </p>
+                    <button
+                        className={`fav-btn ${isFav ? "remove" : "add"}`}
+                        onClick={() => toggleFavorite(details.id, "movie", isFav)}
+                    >
+                        {isFav ? "❤️ Remove from Favorites" : "🤍 Add to Favorites"}
+                    </button>
 
                     {showTrailer ? (
                         <div>
@@ -87,12 +97,12 @@ export default function MovieDetails() {
                                     </div>
                                 ) : null
                             ))}
-                             <button className="trailer-btn close" onClick={closeTrailer}>❌ Close Trailer</button>
+                            <button className="trailer-btn close" onClick={closeTrailer}>❌ Close Trailer</button>
                         </div>
-                    ) : 
-                    (
-                        <button className="trailer-btn" onClick={playVideo}>🎬 Play Trailer</button>
-                    )}
+                    ) :
+                        (
+                            <button className="trailer-btn" onClick={playVideo}>🎬 Play Trailer</button>
+                        )}
                 </div>
             </div>
 
